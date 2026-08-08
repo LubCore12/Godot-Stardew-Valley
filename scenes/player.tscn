@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://dbmbhotl3mjb4" path="res://scenes/scripts/player.gd" id="2_76oj4"]
 [ext_resource type="Texture2D" uid="uid://bp3sfnx2rutrs" path="res://graphics/characters/main/main_basic.png" id="3_6eyoc"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_atpat"]
-radius = 4.0
-height = 10.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
+size = Vector2(10, 10)
 
 [sub_resource type="Animation" id="Animation_2l4js"]
 resource_name = "axe_down"
@@ -1542,7 +1541,7 @@ transitions = ["Start", "Axe", SubResource("AnimationNodeStateMachineTransition_
 graph_offset = Vector2(-131, -223)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_inhyd"]
-graph_offset = Vector2(-149.04008, -122.91565)
+graph_offset = Vector2(-311.11914, 45.96094)
 nodes/output/position = Vector2(854.5454, -272.72726)
 nodes/ToolStateMachine/node = SubResource("AnimationNodeStateMachine_w5sjy")
 nodes/ToolStateMachine/position = Vector2(181.81818, 54.545452)
@@ -1562,16 +1561,19 @@ speed = 60.0
 texture = ExtResource("3_6eyoc")
 hframes = 33
 vframes = 4
+frame = 99
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=1856281435]
-shape = SubResource("CapsuleShape2D_atpat")
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_p2gj0")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=908523032]
 zoom = Vector2(4, 4)
+process_callback = 0
 
 [node name="Animation" type="Node" parent="." unique_id=1969302893]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1901952674]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1901952674 groups=["Players"]]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_kqtwu")
 autoplay = &"idle_down"

@@ -843,4 +843,13 @@ y_sort_enabled = true
 [node name="Tree" parent="Objects/Trees" unique_id=869258947 instance=ExtResource("7_klq6b")]
 position = Vector2(86, -8)
 
+[node name="Slimes" type="Node2D" parent="Objects" unique_id=1974288143]
+y_sort_enabled = true
+
+[node name="Timers" type="Node" parent="." unique_id=237844392]
+
+[node name="SlimeTimer" type="Timer" parent="Timers" unique_id=1717281242]
+autostart = true
+
 [connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]
+[connection signal="timeout" from="Timers/SlimeTimer" to="." method="_on_slime_timer_timeout"]

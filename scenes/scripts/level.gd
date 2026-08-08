@@ -4,6 +4,7 @@ extends Node2D
 @onready var water_layer = $Layers/WaterLayer
 @onready var soil_layer = $Layers/SoilLayer
 @onready var water_soil_layer = $Layers/WaterSoilLayer
+@onready var slime_scene = preload("res://scenes/slime.tscn")
 
 func _on_player_tool_use(tool: int, pos: Vector2, tile_pos: Vector2i) -> void:
 	match tool:
@@ -27,3 +28,9 @@ func _on_player_tool_use(tool: int, pos: Vector2, tile_pos: Vector2i) -> void:
 				print("plant")
 		Enum.Tool.SWORD:
 			print("hit")
+
+func _on_slime_timer_timeout() -> void:
+	var slime = slime_scene.instantiate()
+	slime.setup($Objects/Player)
+	slime.position = Vector2(randf_range(-100, 100), randf_range(-100, 100))
+	$Objects/Slimes.add_child(slime)
