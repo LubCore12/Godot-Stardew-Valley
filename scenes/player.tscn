@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0mnopqlx5dix"]
 
-[ext_resource type="Script" uid="uid://dbmbhotl3mjb4" path="res://scenes/characters/player.gd" id="2_76oj4"]
+[ext_resource type="Script" uid="uid://dbmbhotl3mjb4" path="res://scenes/scripts/player.gd" id="2_76oj4"]
 [ext_resource type="Texture2D" uid="uid://bp3sfnx2rutrs" path="res://graphics/characters/main/main_basic.png" id="3_6eyoc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_atpat"]
@@ -1562,7 +1562,6 @@ speed = 60.0
 texture = ExtResource("3_6eyoc")
 hframes = 33
 vframes = 4
-frame = 1
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=1856281435]
 shape = SubResource("CapsuleShape2D_atpat")

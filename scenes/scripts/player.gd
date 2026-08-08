@@ -36,8 +36,7 @@ func get_input() -> void:
 		$Animation/AnimationTree.set("parameters/OneShot/request", 
 									  AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
-		var grid_pos = Vector2i(round(position.x) / 16, round(position.y) / 16)
-		tool_use.emit(current_tool, grid_pos)
+		tool_use.emit(current_tool, position)
 		can_move = false
 		await $Animation/AnimationTree.animation_finished
 		can_move = true
