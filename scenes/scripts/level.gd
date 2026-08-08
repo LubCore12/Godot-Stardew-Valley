@@ -5,9 +5,7 @@ extends Node2D
 @onready var soil_layer = $Layers/SoilLayer
 @onready var water_soil_layer = $Layers/WaterSoilLayer
 
-func _on_player_tool_use(tool: int, pos: Vector2) -> void:
-	var tile_pos = Vector2i(round(pos.x) / Data.TILE_SIZE, round(pos.y) / Data.TILE_SIZE)
-	
+func _on_player_tool_use(tool: int, pos: Vector2, tile_pos: Vector2i) -> void:
 	match tool:
 		Enum.Tool.AXE:
 			for tree in get_tree().get_nodes_in_group("Trees"):
@@ -24,3 +22,8 @@ func _on_player_tool_use(tool: int, pos: Vector2) -> void:
 		Enum.Tool.FISH:
 			if water_layer.get_cell_tile_data(tile_pos):
 				print("fish")
+		Enum.Tool.SEED:
+			if soil_layer.get_cell_tile_data(tile_pos):
+				print("plant")
+		Enum.Tool.SWORD:
+			print("hit")
