@@ -2,17 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 var direction: Vector2
-var current_tool: Enum.Tool
+var current_tool: Enum.Tool = Enum.Tool.AXE
 var can_move := true
-
-const TOOL_COLLECTION = {
-	Enum.Tool.AXE: "Axe",
-	Enum.Tool.HOE: "Hoe",
-	Enum.Tool.WATER: "Water",
-	Enum.Tool.FISH: "Fish",
-	Enum.Tool.SEED: "Seed",
-	Enum.Tool.SWORD: "Sword"
-}
 
 @onready var move_state_machine = \
 	$Animation/AnimationTree.get("parameters/MoveStateMachine/playback") \
@@ -39,12 +30,16 @@ func get_input() -> void:
 	direction = Input.get_vector("left", "right", "up", "down")
 	
 	if Input.is_action_just_pressed("action"):
-		tool_state_machine.travel("Fish")
+		tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
 		$Animation/AnimationTree.set("parameters/OneShot/request", 
 									  AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		can_move = false
 		await $Animation/AnimationTree.animation_finished
 		can_move = true
+		
+	if Input.is_action_just_pressed("tool_forward") or Input.is_action_just_pressed("tool_backward"):
+		var tool_axis = Input.get_axis("tool_backward", "tool_forward")
+		current_tool = posmod(current_tool + tool_axis, Enum.Tool.size()) as Enum.Tool
 
 func animate() -> void:
 	var target_vector = Vector2i(round(direction.x), round(direction.y))
@@ -54,9 +49,8 @@ func animate() -> void:
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Idle/blend_position", target_vector)
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Move/blend_position", target_vector)
 		
-		for tool in TOOL_COLLECTION.values():
+		for tool in Data.TOOL_STATE_ANIMATIONS.values():
 			$Animation/AnimationTree.set("parameters/ToolStateMachine/{tool}/blend_position".format({"tool": tool}), target_vector)
-			
 	else:
 		move_state_machine.travel("Idle")
 
