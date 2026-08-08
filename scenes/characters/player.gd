@@ -16,6 +16,8 @@ var can_move := true
 @export_group("Movement")
 @export var speed: float
 
+signal tool_use(tool: Enum.Tool, pos: Vector2i)
+
 func _physics_process(_delta: float) -> void:
 	if can_move:
 		get_input()
@@ -33,6 +35,9 @@ func get_input() -> void:
 		tool_state_machine.travel(Data.TOOL_STATE_ANIMATIONS[current_tool])
 		$Animation/AnimationTree.set("parameters/OneShot/request", 
 									  AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		
+		var grid_pos = Vector2i(round(position.x) / 16, round(position.y) / 16)
+		tool_use.emit(current_tool, grid_pos)
 		can_move = false
 		await $Animation/AnimationTree.animation_finished
 		can_move = true
