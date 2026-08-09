@@ -40,8 +40,6 @@ func get_input() -> void:
 		$Animation/AnimationTree.set("parameters/OneShot/request", 
 									  AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
-		var grid_pos = Vector2i(round(position.x) / Data.TILE_SIZE, round(position.y) / Data.TILE_SIZE)
-		tool_use.emit(current_tool, position, grid_pos)
 		can_move = false
 		await $Animation/AnimationTree.animation_finished
 		can_move = true
@@ -64,4 +62,5 @@ func animate() -> void:
 		move_state_machine.travel("Idle")
 
 func tool_use_emit():
-	print('tool')
+	var grid_pos = Vector2i(round(position.x) / Data.TILE_SIZE, round(position.y) / Data.TILE_SIZE)
+	tool_use.emit(current_tool, position, grid_pos)

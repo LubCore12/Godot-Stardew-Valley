@@ -27,7 +27,14 @@ func _on_player_tool_use(tool: int, pos: Vector2, tile_pos: Vector2i) -> void:
 			if soil_layer.get_cell_tile_data(tile_pos):
 				print("plant")
 		Enum.Tool.SWORD:
-			print("hit")
+			for slime in get_tree().get_nodes_in_group("Slimes"):
+				if $Objects/Player.position.distance_to(slime.position) < 25:
+					slime.discard_health(2.0)
+					
+					var tween = create_tween()
+					slime = slime.get_node("Sprite")
+					tween.tween_property(slime.material, "shader_parameter/flash_factor", 1.0, 0.2)
+					tween.tween_property(slime.material, "shader_parameter/flash_factor", 0.0, 0.2)
 
 func _on_slime_timer_timeout() -> void:
 	var slime = slime_scene.instantiate()

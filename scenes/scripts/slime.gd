@@ -42,8 +42,17 @@ func animate() -> void:
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Move/blend_position", blend_pos)
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Idle/blend_position", blend_pos)
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Attack/blend_position", blend_pos)
+		$Animation/AnimationTree.set("parameters/DeathStateMachine/Death/blend_position", blend_pos)
 	else:
 		move_state_machine.travel("Idle")
+
+func discard_health(hlth: float):
+	health -= hlth
+	if health <= 0:
+		$Animation/AnimationTree.set("parameters/OneShot/request", 
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		await $Animation/AnimationTree.animation_finished
+		queue_free()
 
 func _on_view_area_body_entered(body: 	Node2D) -> void:
 	if body == player:

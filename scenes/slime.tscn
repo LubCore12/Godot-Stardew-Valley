@@ -2,6 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://b466fqj7w4mne" path="res://graphics/characters/blob.png" id="1_371uh"]
 [ext_resource type="Script" uid="uid://bonx8rt3ea7gq" path="res://scenes/scripts/slime.gd" id="1_p2gj0"]
+[ext_resource type="Shader" uid="uid://hdj8x5sgl51e" path="res://shaders/flash.gdshader" id="2_n6pvg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p2gj0"]
+resource_local_to_scene = true
+shader = ExtResource("2_n6pvg")
+shader_parameter/flash_factor = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(10, 4)
@@ -161,7 +168,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_gstla"]
 resource_name = "kill_down"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -177,7 +184,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2xjuo"]
 resource_name = "kill_left"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -193,7 +200,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_g40cl"]
 resource_name = "kill_right"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -209,7 +216,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_cxm07"]
 resource_name = "kill_up"
-length = 0.39999999999999997
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -367,6 +374,70 @@ _data = {
 &"walk_right": SubResource("Animation_0l8pv"),
 &"walk_up": SubResource("Animation_vnioy")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rrr3x"]
+animation = &"kill_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eyfvk"]
+animation = &"kill_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iscye"]
+animation = &"kill_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aq06o"]
+animation = &"kill_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3tc40"]
+animation = &"kill_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_klxi6"]
+animation = &"kill_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0yeyc"]
+animation = &"kill_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t6mwi"]
+animation = &"kill_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7d6fo"]
+animation = &"kill_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_rewg1"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_rrr3x")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_0/name = &"kill_down"
+blend_point_1/node = SubResource("AnimationNodeAnimation_eyfvk")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_1/name = &"kill_down 2"
+blend_point_2/node = SubResource("AnimationNodeAnimation_iscye")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"kill_up"
+blend_point_3/node = SubResource("AnimationNodeAnimation_aq06o")
+blend_point_3/pos = Vector2(1, 0)
+blend_point_3/name = &"kill_right"
+blend_point_4/node = SubResource("AnimationNodeAnimation_3tc40")
+blend_point_4/pos = Vector2(1, 1)
+blend_point_4/name = &"kill_right 2"
+blend_point_5/node = SubResource("AnimationNodeAnimation_klxi6")
+blend_point_5/pos = Vector2(1, -1)
+blend_point_5/name = &"kill_right 3"
+blend_point_6/node = SubResource("AnimationNodeAnimation_0yeyc")
+blend_point_6/pos = Vector2(-1, 0)
+blend_point_6/name = &"kill_left"
+blend_point_7/node = SubResource("AnimationNodeAnimation_t6mwi")
+blend_point_7/pos = Vector2(-1, 1)
+blend_point_7/name = &"kill_left 2"
+blend_point_8/node = SubResource("AnimationNodeAnimation_7d6fo")
+blend_point_8/pos = Vector2(-1, -1)
+blend_point_8/name = &"kill_left 3"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h6x3v"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_n6pvg"]
+states/Death/node = SubResource("AnimationNodeBlendSpace2D_rewg1")
+states/Death/position = Vector2(417.60083, 99.87965)
+transitions = ["Start", "Death", SubResource("AnimationNodeStateMachineTransition_h6x3v")]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_35t6e"]
 animation = &"attack_down"
@@ -561,11 +632,17 @@ states/Move/position = Vector2(596.72723, 97.13177)
 states/Start/position = Vector2(200.98721, 98.76455)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_pjw23"), "Idle", "Move", SubResource("AnimationNodeStateMachineTransition_2npkn"), "Move", "Idle", SubResource("AnimationNodeStateMachineTransition_fd6lc"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_eyfvk"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_iscye"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_aq06o"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_3tc40")]
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_h6x3v"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_37okk"]
-graph_offset = Vector2(-547.86224, 3.4138904)
+graph_offset = Vector2(-705.39417, 220.32289)
 nodes/MoveStateMachine/node = SubResource("AnimationNodeStateMachine_p2gj0")
 nodes/MoveStateMachine/position = Vector2(-254.54546, 145.45454)
-node_connections = [&"output", 0, &"MoveStateMachine"]
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_h6x3v")
+nodes/OneShot/position = Vector2(90.90909, 145.45454)
+nodes/DeathStateMachine/node = SubResource("AnimationNodeStateMachine_n6pvg")
+nodes/DeathStateMachine/position = Vector2(-254.54546, 436.36362)
+node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"MoveStateMachine", &"OneShot", 1, &"DeathStateMachine"]
 
 [node name="Slime" type="CharacterBody2D" unique_id=1791367013 groups=["Slimes"]]
 collision_layer = 4
@@ -577,6 +654,7 @@ damage = 1.0
 health = 3.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=725989631]
+material = SubResource("ShaderMaterial_p2gj0")
 position = Vector2(-0.5, 0)
 texture = ExtResource("1_371uh")
 hframes = 14
@@ -612,6 +690,10 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/MoveStateMachine/Attack/blend_position = Vector2(0, 0)
 parameters/MoveStateMachine/Idle/blend_position = Vector2(0, 0)
 parameters/MoveStateMachine/Move/blend_position = Vector2(0, 0)
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
+parameters/DeathStateMachine/Death/blend_position = Vector2(0, 0)
 
 [connection signal="body_entered" from="ViewArea" to="." method="_on_view_area_body_entered"]
 [connection signal="body_exited" from="ViewArea" to="." method="_on_view_area_body_exited"]
