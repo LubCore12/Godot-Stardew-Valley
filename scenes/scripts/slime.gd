@@ -5,13 +5,19 @@ var direction: Vector2
 var player: CharacterBody2D
 var see_player := false
 var is_moving := false
+var in_attack_area := false
 
 @onready var move_state_machine = \
 	$Animation/AnimationTree.get("parameters/MoveStateMachine/playback") \
 	as AnimationNodeStateMachinePlayback	
 
 @export_group("Movement")
-@export var speed: float
+@export var basic_speed: float
+@export var attack_speed: float
+
+@export_group("Basic data")
+@export var damage: float
+@export var health: float
 
 func setup(plr):
 	player = plr
@@ -19,7 +25,7 @@ func setup(plr):
 func _physics_process(_delta: float) -> void:
 	direction = (player.position - position).normalized()
 	if is_moving:
-		velocity = direction * speed
+		velocity = direction * basic_speed
 		move_and_slide()
 	animate()
 	
@@ -35,6 +41,7 @@ func animate() -> void:
 		move_state_machine.travel("Move")
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Move/blend_position", blend_pos)
 		$Animation/AnimationTree.set("parameters/MoveStateMachine/Idle/blend_position", blend_pos)
+		$Animation/AnimationTree.set("parameters/MoveStateMachine/Attack/blend_position", blend_pos)
 	else:
 		move_state_machine.travel("Idle")
 
@@ -45,3 +52,11 @@ func _on_view_area_body_entered(body: 	Node2D) -> void:
 func _on_view_area_body_exited(body: Node2D) -> void:
 	if body == player:
 		see_player = false
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body == player:
+		in_attack_area = true
+
+func _on_attack_area_body_exited(body: Node2D) -> void:
+	if body == player:
+		in_attack_area = false

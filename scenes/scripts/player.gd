@@ -17,6 +17,9 @@ var can_move := true
 @export_group("Movement")
 @export var speed: float
 
+@export_group("Basic data")
+@export var health: float
+
 signal tool_use(tool: Enum.Tool, pos: Vector2i)
 
 func _physics_process(_delta: float) -> void:

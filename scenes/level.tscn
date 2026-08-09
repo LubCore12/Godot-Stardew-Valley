@@ -849,6 +849,7 @@ y_sort_enabled = true
 [node name="Timers" type="Node" parent="." unique_id=237844392]
 
 [node name="SlimeTimer" type="Timer" parent="Timers" unique_id=1717281242]
+wait_time = 4.0
 autostart = true
 
 [connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]
