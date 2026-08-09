@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://b0mnopqlx5dix"]
 
+[ext_resource type="Shader" uid="uid://hdj8x5sgl51e" path="res://shaders/flash.gdshader" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://dbmbhotl3mjb4" path="res://scenes/scripts/player.gd" id="2_76oj4"]
 [ext_resource type="Texture2D" uid="uid://bp3sfnx2rutrs" path="res://graphics/characters/main/main_basic.png" id="3_6eyoc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhqgy"]
+resource_local_to_scene = true
+shader = ExtResource("1_qhqgy")
+shader_parameter/flash_factor = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
 size = Vector2(10, 10)
@@ -1551,18 +1558,17 @@ nodes/OneShot/node = SubResource("AnimationNodeOneShot_yewv4")
 nodes/OneShot/position = Vector2(600, -272.72726)
 node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"MoveStateMachine", &"OneShot", 1, &"ToolStateMachine"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1658268363]
+[node name="Player" type="CharacterBody2D" unique_id=1658268363 groups=["Players"]]
 collision_layer = 2
-collision_mask = 5
 script = ExtResource("2_76oj4")
 speed = 60.0
 health = 10.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1781514746]
+material = SubResource("ShaderMaterial_qhqgy")
 texture = ExtResource("3_6eyoc")
 hframes = 33
 vframes = 4
-frame = 99
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=1856281435]
 position = Vector2(0, -1)
@@ -1574,7 +1580,7 @@ process_callback = 0
 
 [node name="Animation" type="Node" parent="." unique_id=1969302893]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1901952674 groups=["Players"]]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animation" unique_id=1901952674]
 root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_kqtwu")
 autoplay = &"idle_down"

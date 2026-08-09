@@ -60,6 +60,10 @@ func animate() -> void:
 			$Animation/AnimationTree.set("parameters/ToolStateMachine/{tool}/blend_position".format({"tool": tool}), target_vector)
 	else:
 		move_state_machine.travel("Idle")
+		
+func discard_health(hlth: float):
+	health -= hlth
+	print(health)
 
 func tool_use_emit():
 	var grid_pos = Vector2i(round(position.x) / Data.TILE_SIZE, round(position.y) / Data.TILE_SIZE)
