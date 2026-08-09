@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 var direction: Vector2
+var last_direction: Vector2
 var current_tool: Enum.Tool = Enum.Tool.AXE
 var current_seed: Enum.Seed = Enum.Seed.TOMATO
 var can_move := true
@@ -24,6 +25,11 @@ signal tool_use(tool: Enum.Tool, pos: Vector2i)
 signal player_damage(player: CharacterBody2D)
 
 func _physics_process(_delta: float) -> void:
+	if direction:
+		last_direction = direction
+		if last_direction.x != round(last_direction.x):
+			last_direction.x = round(last_direction.x)
+			last_direction.y = 0
 	if can_move:
 		get_input()
 		move()
@@ -70,6 +76,11 @@ func discard_health(damage: float):
 	player_damage.emit(self)
 	print("Lose")
 
+func get_grid_pos() -> Vector2i:
+	return Vector2i(
+		round((position.x + last_direction.x * 20 - 8) / Data.TILE_SIZE), 
+		round((position.y + last_direction.y * 20 - 8) / Data.TILE_SIZE)
+	)
+
 func tool_use_emit():
-	var grid_pos = Vector2i(round(position.x) / Data.TILE_SIZE, round(position.y) / Data.TILE_SIZE)
-	tool_use.emit(current_tool, position, grid_pos)
+	tool_use.emit(current_tool, position, get_grid_pos())

@@ -5,6 +5,14 @@ extends Node2D
 @onready var soil_layer = $Objects/Layers/SoilLayer
 @onready var water_soil_layer = $Objects/Layers/WaterSoilLayer
 @onready var slime_scene = preload("res://scenes/slime.tscn")
+@onready var highlight = Sprite2D.new()
+
+func _ready() -> void:
+	highlight.texture = load("res://graphics/machines/projectile.png")
+	$Objects.add_child(highlight)
+
+func _process(delta: float) -> void:
+	highlight.position = $Objects/Player.get_grid_pos() * 16 + Vector2i(8, 8)
 
 func _on_player_tool_use(tool: int, pos: Vector2, tile_pos: Vector2i) -> void:
 	match tool:
