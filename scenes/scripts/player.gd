@@ -21,6 +21,7 @@ var can_move := true
 @export var health: float
 
 signal tool_use(tool: Enum.Tool, pos: Vector2i)
+signal player_damage(player: CharacterBody2D)
 
 func _physics_process(_delta: float) -> void:
 	if can_move:
@@ -61,9 +62,10 @@ func animate() -> void:
 	else:
 		move_state_machine.travel("Idle")
 		
-func discard_health(hlth: float):
-	health -= hlth
-	print(health)
+func discard_health(damage: float):
+	health -= damage
+	player_damage.emit(self)
+	print("Lose")
 
 func tool_use_emit():
 	var grid_pos = Vector2i(round(position.x) / Data.TILE_SIZE, round(position.y) / Data.TILE_SIZE)

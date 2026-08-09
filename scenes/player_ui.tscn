@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cu0vtkkwyoc8i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48xfa"]
+bg_color = Color(0.29182392, 0.29182395, 0.29182395, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8isll"]
+bg_color = Color(0.9490196, 0.011764706, 0, 1)
+
+[sub_resource type="Theme" id="Theme_sk4pr"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_48xfa")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_8isll")
+
+[node name="PlayerUI" type="Control" unique_id=241628540]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopLeftUI" type="VBoxContainer" parent="." unique_id=2012544102]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03
+anchor_top = 0.03
+anchor_right = 0.03
+anchor_bottom = 0.03
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="ProgressBar" parent="TopLeftUI" unique_id=2109613566]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 2
+theme = SubResource("Theme_sk4pr")
+theme_override_colors/font_color = Color(0.73333335, 0.44313726, 0.18039216, 0)
+max_value = 10.0
+value = 10.0

@@ -41,3 +41,6 @@ func _on_slime_timer_timeout() -> void:
 	slime.setup($Objects/Player)
 	slime.position = Vector2(randf_range(-100, 100), randf_range(-100, 100))
 	$Objects/Slimes.add_child(slime)
+
+func _on_player_damage(player: CharacterBody2D) -> void:
+	$CanvasLayer/PlayerUI/TopLeftUI/HealthBar.value = player.health

@@ -85,6 +85,7 @@ func _on_attack_area_body_exited(body: Node2D) -> void:
 func _on_damage_area_body_entered(body: Node2D) -> void:
 	if body == player and is_attacking:
 		player.discard_health(damage)
+		
 		var tween = create_tween()
 		var sprite = player.get_node("Sprite")
 		
