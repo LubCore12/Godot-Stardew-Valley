@@ -48,6 +48,9 @@ func get_input() -> void:
 	if Input.is_action_just_pressed("tool_forward") or Input.is_action_just_pressed("tool_backward"):
 		var tool_axis = Input.get_axis("tool_backward", "tool_forward")
 		current_tool = posmod(current_tool + tool_axis, Enum.Tool.size()) as Enum.Tool
+		
+	if Input.is_action_just_pressed("seed_forward"):
+		current_seed = posmod(current_seed + 1, Enum.Seed.size()) as Enum.Seed
 
 func animate() -> void:
 	var target_vector = Vector2i(round(direction.x), round(direction.y))

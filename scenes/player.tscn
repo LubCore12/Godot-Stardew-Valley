@@ -11,7 +11,7 @@ shader_parameter/flash_factor = 0.0
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2gj0"]
-size = Vector2(10, 10)
+size = Vector2(12, 12)
 
 [sub_resource type="Animation" id="Animation_2l4js"]
 resource_name = "axe_down"
@@ -1571,7 +1571,6 @@ hframes = 33
 vframes = 4
 
 [node name="Shape" type="CollisionShape2D" parent="." unique_id=1856281435]
-position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_p2gj0")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=908523032]
