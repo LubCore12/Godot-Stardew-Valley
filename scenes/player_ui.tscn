@@ -38,3 +38,18 @@ theme = SubResource("Theme_sk4pr")
 theme_override_colors/font_color = Color(0.73333335, 0.44313726, 0.18039216, 0)
 max_value = 10.0
 value = 10.0
+
+[node name="CurrentContainer" type="HBoxContainer" parent="TopLeftUI" unique_id=858065948]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentTool" type="TextureRect" parent="TopLeftUI/CurrentContainer" unique_id=246346078]
+custom_maximum_size = Vector2(50, -1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CurrentSeed" type="TextureRect" parent="TopLeftUI/CurrentContainer" unique_id=1735819526]
+custom_maximum_size = Vector2(50, -1)
+layout_mode = 2
+size_flags_horizontal = 3

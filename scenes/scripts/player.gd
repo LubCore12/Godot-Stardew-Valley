@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 var direction: Vector2
 var last_direction: Vector2 = Vector2.DOWN
-var current_tool: Enum.Tool = Enum.Tool.AXE
-var current_seed: Enum.Seed = Enum.Seed.TOMATO
+var current_tool: Enum.Tool = Data.starting_tool
+var current_seed: Enum.Seed = Data.starting_seed
 var can_move := true
 
 @onready var move_state_machine = \
@@ -23,6 +23,8 @@ var can_move := true
 
 signal tool_use(tool: Enum.Tool, pos: Vector2i)
 signal player_damage(damage: float)
+signal tool_change(tool: Enum.Tool)
+signal seed_change(seed: Enum.Seed)
 
 func _physics_process(_delta: float) -> void:
 	if direction:
@@ -54,9 +56,11 @@ func get_input() -> void:
 	if Input.is_action_just_pressed("tool_forward") or Input.is_action_just_pressed("tool_backward"):
 		var tool_axis = Input.get_axis("tool_backward", "tool_forward")
 		current_tool = posmod(current_tool + tool_axis, Enum.Tool.size()) as Enum.Tool
+		tool_change.emit(current_tool)
 		
 	if Input.is_action_just_pressed("seed_forward"):
 		current_seed = posmod(current_seed + 1, Enum.Seed.size()) as Enum.Seed
+		seed_change.emit(current_seed)
 
 func animate() -> void:
 	var target_vector = Vector2i(round(direction.x), round(direction.y))
@@ -71,7 +75,7 @@ func animate() -> void:
 	else:
 		move_state_machine.travel("Idle")
 		
-func discard_health(damage: float):
+func discard_health(damage: float) -> void:
 	health -= damage
 	player_damage.emit(damage)
 
@@ -81,5 +85,5 @@ func get_grid_pos() -> Vector2i:
 		round((position.y + last_direction.y * 20 - Data.HALF_TILE_SIZE) / Data.TILE_SIZE)
 	)
 
-func tool_use_emit():
+func tool_use_emit() -> void:
 	tool_use.emit(current_tool, current_seed, position, get_grid_pos())

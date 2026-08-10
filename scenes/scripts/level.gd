@@ -88,3 +88,9 @@ func _on_slime_timer_timeout() -> void:
 
 func _on_player_damage(damage: float) -> void:
 	UI.damage(damage)
+
+func _on_player_tool_change(tool: int) -> void:
+	UI.set_tool(tool)
+
+func _on_player_seed_change(enum_seed: int) -> void:
+	UI.set_seed(enum_seed)

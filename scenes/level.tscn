@@ -970,10 +970,11 @@ wait_time = 4.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1194246104]
-visible = false
 
 [node name="PlayerUI" parent="CanvasLayer" unique_id=241628540 instance=ExtResource("8_b121j")]
 
 [connection signal="player_damage" from="Objects/Player" to="." method="_on_player_damage"]
+[connection signal="seed_change" from="Objects/Player" to="." method="_on_player_seed_change"]
+[connection signal="tool_change" from="Objects/Player" to="." method="_on_player_tool_change"]
 [connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]
 [connection signal="timeout" from="Timers/SlimeTimer" to="." method="_on_slime_timer_timeout"]

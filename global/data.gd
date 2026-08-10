@@ -13,8 +13,8 @@ const TILE_VECTOR = Vector2i(TILE_SIZE, TILE_SIZE)
 const TILE_HALF_VECTOR = Vector2i(round(TILE_SIZE / 2.0), round(TILE_SIZE / 2.0))
 const PLANT_DATA = {
 	Enum.Seed.TOMATO: {
-		'texture': "res://graphics/plants/tomato.png",
-		'icon_texture': "res://graphics/icons/tomato.png",
+		'texture': preload("res://graphics/plants/tomato.png"),
+		'icon_texture': preload("res://graphics/icons/tomato.png"),
 		'name':'Tomato',
 		'h_frames': 4,
 		'max_age': 3,
@@ -22,8 +22,8 @@ const PLANT_DATA = {
 		'death_max': 3,
 		'reward': Enum.Item.TOMATO},
 	Enum.Seed.CORN: {
-		'texture': "res://graphics/plants/corn.png",
-		'icon_texture': "res://graphics/icons/corn.png",
+		'texture': preload("res://graphics/plants/corn.png"),
+		'icon_texture': preload("res://graphics/icons/corn.png"),
 		'name':'Corn',
 		'h_frames': 4,
 		'max_age': 3,
@@ -31,8 +31,8 @@ const PLANT_DATA = {
 		'death_max': 2,
 		'reward': Enum.Item.CORN},
 	Enum.Seed.PUMPKIN: {
-		'texture': "res://graphics/plants/pumpkin.png",
-		'icon_texture': "res://graphics/icons/pumpkin.png",
+		'texture': preload("res://graphics/plants/pumpkin.png"),
+		'icon_texture': preload("res://graphics/icons/pumpkin.png"),
 		'name':'Pumpkin',
 		'h_frames': 4,
 		'max_age': 3,
@@ -40,8 +40,8 @@ const PLANT_DATA = {
 		'death_max': 3,
 		'reward': Enum.Item.PUMPKIN},
 	Enum.Seed.WHEAT: {
-		'texture': "res://graphics/plants/wheat.png",
-		'icon_texture': "res://graphics/icons/wheat.png",
+		'texture': preload("res://graphics/plants/wheat.png"),
+		'icon_texture': preload("res://graphics/icons/wheat.png"),
 		'name':'Wheat',
 		'h_frames': 4,
 		'max_age': 3,
@@ -99,5 +99,15 @@ const TOOL_STATE_ANIMATIONS = {
 	Enum.Tool.WATER: 'Water',
 	Enum.Tool.SWORD: 'Sword',
 	Enum.Tool.FISH: 'Fish',
-	Enum.Tool.SEED: 'Seed',
+	Enum.Tool.SEED: 'Seed'}
+const TOOL_STATE_TEXTURES = {
+	Enum.Tool.HOE: preload("res://graphics/icons/hoe.png"),
+	Enum.Tool.AXE: preload("res://graphics/icons/axe.png"),
+	Enum.Tool.WATER: preload("res://graphics/icons/water.png"),
+	Enum.Tool.SWORD: preload("res://graphics/icons/sword.png"),
+	Enum.Tool.FISH: preload("res://graphics/icons/fish.png"),
+	Enum.Tool.SEED: preload("res://graphics/icons/beanie.png"),
 }
+
+const starting_tool = Enum.Tool.AXE
+const starting_seed = Enum.Seed.TOMATO
