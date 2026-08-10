@@ -30,6 +30,7 @@ anchor_right = 0.03
 anchor_bottom = 0.03
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = 10
 
 [node name="HealthBar" type="ProgressBar" parent="TopLeftUI" unique_id=2109613566]
 custom_minimum_size = Vector2(350, 50)

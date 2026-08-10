@@ -7,6 +7,8 @@ var current_tool: Enum.Tool = Data.starting_tool
 var current_seed: Enum.Seed = Data.starting_seed
 var can_move := true
 
+var wood_amount = 0
+
 @onready var move_state_machine = \
 	$Animation/AnimationTree.get("parameters/MoveStateMachine/playback") \
 	as AnimationNodeStateMachinePlayback
@@ -27,11 +29,7 @@ signal tool_change(tool: Enum.Tool)
 signal seed_change(seed: Enum.Seed)
 
 func _physics_process(_delta: float) -> void:
-	if direction:
-		last_direction = direction
-		if last_direction.x != round(last_direction.x):
-			last_direction.x = round(last_direction.x)
-			last_direction.y = 0
+	set_last_direction()
 	if can_move:
 		get_input()
 		move()
@@ -74,7 +72,14 @@ func animate() -> void:
 			animation_tree.set("parameters/ToolStateMachine/{tool}/blend_position".format({"tool": tool}), target_vector)
 	else:
 		move_state_machine.travel("Idle")
-		
+
+func set_last_direction() -> void:
+	if direction:
+		last_direction = direction
+		if last_direction.x != round(last_direction.x):
+			last_direction.x = round(last_direction.x)
+			last_direction.y = 0
+
 func discard_health(damage: float) -> void:
 	health -= damage
 	player_damage.emit(damage)

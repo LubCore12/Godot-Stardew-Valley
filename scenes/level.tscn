@@ -903,6 +903,8 @@ tile_set = SubResource("TileSet_xb4v1")
 y_sort_enabled = true
 tile_set = SubResource("TileSet_urvlt")
 
+[node name="DecoLayer" type="TileMapLayer" parent="Objects/Layers" unique_id=845487859]
+
 [node name="Player" parent="Objects" unique_id=276191081 instance=ExtResource("6_t1rx8")]
 position = Vector2(8, 0)
 

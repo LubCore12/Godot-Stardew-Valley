@@ -13,6 +13,7 @@ extends Node2D
 @onready var plants = $Objects/Plants
 @onready var UI = $CanvasLayer/PlayerUI
 
+# Эту херь надо убирать (в highlight может)
 func _process(_delta: float) -> void:
 	var grid_pos = player.get_grid_pos()
 	var current_tool = player.current_tool
