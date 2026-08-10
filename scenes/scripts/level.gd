@@ -17,15 +17,28 @@ func _process(_delta: float) -> void:
 	var grid_pos = player.get_grid_pos()
 	var current_tool = player.current_tool
 	var grass_tile = grass_layer.get_cell_tile_data(grid_pos) as TileData
+	var soil_tile = soil_layer.get_cell_tile_data(grid_pos) as TileData
+	var water_soil_tile = water_soil_layer.get_cell_tile_data(grid_pos) as TileData
 	var hill_tile = hill_layer.get_cell_tile_data(grid_pos) as TileData
 	
-	if grass_tile and not hill_tile \
-	   and grass_tile.get_custom_data("CanPlace") and \
-	   current_tool in [Enum.Tool.HOE, Enum.Tool.WATER]:
-		highlight.show()
-		highlight.position = grid_pos * Data.TILE_SIZE + Data.TILE_HALF_VECTOR
-	else:
-		highlight.hide()
+	highlight.hide()
+	highlight.position = grid_pos * Data.TILE_SIZE + Data.TILE_HALF_VECTOR
+	
+	match current_tool:
+		Enum.Tool.HOE:
+			if grass_tile and not hill_tile \
+			   and grass_tile.get_custom_data("CanPlace") and \
+			   current_tool in [Enum.Tool.HOE, Enum.Tool.WATER, Enum.Tool.SEED]:
+				highlight.show()
+		Enum.Tool.WATER:
+			if soil_tile and not water_soil_tile:
+				highlight.show()
+		Enum.Tool.SEED:
+			var can_show = true
+			for plant in plants.get_children():
+				if soil_tile and Vector2i(plant.position) == grid_pos * Data.TILE_SIZE + Data.TILE_HALF_VECTOR:
+					can_show = false
+			highlight.visible = can_show
 
 func _on_player_tool_use(tool: Enum.Tool, plant_seed: Enum.Seed, pos: Vector2, tile_pos: Vector2i) -> void:
 	match tool:

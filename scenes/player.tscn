@@ -1561,7 +1561,7 @@ node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"MoveStateMachine"
 [node name="Player" type="CharacterBody2D" unique_id=1658268363 groups=["Players"]]
 collision_layer = 2
 script = ExtResource("2_76oj4")
-speed = 60.0
+speed = 200.0
 health = 10.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1781514746]
