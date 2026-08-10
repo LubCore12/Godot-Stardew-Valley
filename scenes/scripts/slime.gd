@@ -11,6 +11,7 @@ var is_attacking := false
 @onready var move_state_machine = \
 	$Animation/AnimationTree.get("parameters/MoveStateMachine/playback") \
 	as AnimationNodeStateMachinePlayback	
+@onready var animation_tree = $Animation/AnimationTree
 
 @export_group("Movement")
 @export var basic_speed: float
@@ -49,10 +50,10 @@ func animate() -> void:
 	
 	if see_player:
 		move_state_machine.travel("Attack" if in_attack_area else "Move")
-		$Animation/AnimationTree.set("parameters/MoveStateMachine/Move/blend_position", blend_pos)
-		$Animation/AnimationTree.set("parameters/MoveStateMachine/Idle/blend_position", blend_pos)
-		$Animation/AnimationTree.set("parameters/MoveStateMachine/Attack/blend_position", blend_pos)
-		$Animation/AnimationTree.set("parameters/DeathStateMachine/Death/blend_position", blend_pos)
+		animation_tree.set("parameters/MoveStateMachine/Move/blend_position", blend_pos)
+		animation_tree.set("parameters/MoveStateMachine/Idle/blend_position", blend_pos)
+		animation_tree.set("parameters/MoveStateMachine/Attack/blend_position", blend_pos)
+		animation_tree.set("parameters/DeathStateMachine/Death/blend_position", blend_pos)
 	else:
 		move_state_machine.travel("Idle")
 
@@ -61,9 +62,9 @@ func discard_health(hlth: float):
 	if health <= 0:
 		basic_speed = 0
 		attack_speed = 0
-		$Animation/AnimationTree.set("parameters/OneShot/request", 
+		animation_tree.set("parameters/OneShot/request", 
 			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-		await $Animation/AnimationTree.animation_finished
+		await animation_tree.animation_finished
 		queue_free()
 
 func _on_view_area_body_entered(body: 	Node2D) -> void:

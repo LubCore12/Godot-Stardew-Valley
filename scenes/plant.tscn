@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c84ydcm7vqm4u"]
+
+[ext_resource type="Script" uid="uid://hnmwyj4xd3tp" path="res://scenes/scripts/plant.gd" id="1_fi0kw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pppyj"]
+load_path = "res://.godot/imported/wheat.png-9a3c2d9a1ba657480846e10b06c0f6b2.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pppyj"]
+size = Vector2(4, 6)
+
+[node name="Plant" type="StaticBody2D" unique_id=568833946]
+script = ExtResource("1_fi0kw")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=414676405]
+position = Vector2(-0.5, -14)
+texture = SubResource("CompressedTexture2D_pppyj")
+hframes = 4
+
+[node name="Shape" type="CollisionShape2D" parent="." unique_id=1198084968]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_pppyj")

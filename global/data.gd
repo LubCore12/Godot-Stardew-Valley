@@ -8,6 +8,9 @@ const PLAYER_SKINS = {
 	Enum.Style.STRAW: preload("res://graphics/characters/main/main_straw.png"),
 	Enum.Style.BEANIE: preload("res://graphics/characters/main/main_red.png")}
 const TILE_SIZE = 16
+const HALF_TILE_SIZE = round(TILE_SIZE / 2.0)
+const TILE_VECTOR = Vector2i(TILE_SIZE, TILE_SIZE)
+const TILE_HALF_VECTOR = Vector2i(round(TILE_SIZE / 2.0), round(TILE_SIZE / 2.0))
 const PLANT_DATA = {
 	Enum.Seed.TOMATO: {
 		'texture': "res://graphics/plants/tomato.png",

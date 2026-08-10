@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cu0vtkkwyoc8i"]
 
+[ext_resource type="Script" uid="uid://b44smhsiok1wu" path="res://scenes/scripts/player_ui.gd" id="1_jkj6h"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48xfa"]
 bg_color = Color(0.29182392, 0.29182395, 0.29182395, 1)
 
@@ -17,6 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jkj6h")
 
 [node name="TopLeftUI" type="VBoxContainer" parent="." unique_id=2012544102]
 layout_mode = 1
