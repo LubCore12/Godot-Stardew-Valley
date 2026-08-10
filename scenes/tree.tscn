@@ -1,14 +1,25 @@
 [gd_scene format=3 uid="uid://4ro2nw4nnc0n"]
 
 [ext_resource type="Texture2D" uid="uid://d3pi6mohcmq4p" path="res://graphics/plants/tree.png" id="1_avsvi"]
+[ext_resource type="Script" uid="uid://c0cb7ohhtdcxt" path="res://scenes/scripts/tree.gd" id="1_vplca"]
+[ext_resource type="Shader" uid="uid://hdj8x5sgl51e" path="res://shaders/flash.gdshader" id="2_viusy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vplca"]
+resource_local_to_scene = true
+shader = ExtResource("2_viusy")
+shader_parameter/flash_factor = 0.0
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vplca"]
 size = Vector2(12, 9)
 
 [node name="Tree" type="StaticBody2D" unique_id=869258947 groups=["Trees"]]
 collision_mask = 0
+script = ExtResource("1_vplca")
+tree_cut_limit = 3
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2064287766]
+material = SubResource("ShaderMaterial_vplca")
 position = Vector2(0, -2)
 texture = ExtResource("1_avsvi")
 hframes = 2

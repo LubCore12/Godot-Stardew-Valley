@@ -59,6 +59,10 @@ func animate() -> void:
 
 func discard_health(hlth: float):
 	health -= hlth
+	var tween = create_tween()
+	tween.tween_property($Sprite.material, "shader_parameter/flash_factor", 1.0, 0.2)
+	tween.tween_property($Sprite.material, "shader_parameter/flash_factor", 0.0, 0.2)
+	
 	if health <= 0:
 		basic_speed = 0
 		attack_speed = 0

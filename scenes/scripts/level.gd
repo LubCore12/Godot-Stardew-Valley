@@ -21,6 +21,11 @@ func _process(_delta: float) -> void:
 	var water_soil_tile = water_soil_layer.get_cell_tile_data(grid_pos) as TileData
 	var hill_tile = hill_layer.get_cell_tile_data(grid_pos) as TileData
 	
+	if Input.is_action_just_pressed("ui_cancel"):
+		for plant in plants.get_children():
+			plant.grow(water_soil_tile != null)
+		water_soil_layer.clear()
+	
 	highlight.hide()
 	highlight.position = grid_pos * Data.TILE_SIZE + Data.TILE_HALF_VECTOR
 	
@@ -44,8 +49,8 @@ func _on_player_tool_use(tool: Enum.Tool, plant_seed: Enum.Seed, pos: Vector2, t
 	match tool:
 		Enum.Tool.AXE:
 			for tree in get_tree().get_nodes_in_group("Trees"):
-				if tree.position.distance_to(pos) < 20:
-					print("axe")
+				if tree.position.distance_to(pos) < 20 and not tree.is_cutted:
+					tree.cut()
 		Enum.Tool.HOE:
 			var grass_tile = grass_layer.get_cell_tile_data(tile_pos) as TileData
 			var soil_tile = soil_layer.get_cell_tile_data(tile_pos) as TileData
@@ -71,13 +76,9 @@ func _on_player_tool_use(tool: Enum.Tool, plant_seed: Enum.Seed, pos: Vector2, t
 				print("plant")
 		Enum.Tool.SWORD:
 			for slime in get_tree().get_nodes_in_group("Slimes"):
+				print(slime)
 				if player.position.distance_to(slime.position) < 25:
 					slime.discard_health(2.0)
-					
-					var tween = create_tween()
-					slime = slime.get_node("Sprite")
-					tween.tween_property(slime.material, "shader_parameter/flash_factor", 1.0, 0.2)
-					tween.tween_property(slime.material, "shader_parameter/flash_factor", 0.0, 0.2)
 
 func _on_slime_timer_timeout() -> void:
 	var slime = slime_scene.instantiate()
